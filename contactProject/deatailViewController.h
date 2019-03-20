@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface deatailViewController : UIViewController
 @property(nonatomic) CNContact *data;
+@property (nonatomic) NSString *EM;
 @end
 
 NS_ASSUME_NONNULL_END

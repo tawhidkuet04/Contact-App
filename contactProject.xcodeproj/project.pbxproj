@@ -18,6 +18,7 @@
 		4E12FAE622420F3500D6E414 /* serachViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E12FAE422420F3500D6E414 /* serachViewController.xib */; };
 		4E12FAF022422CAC00D6E414 /* deatailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12FAEE22422CAC00D6E414 /* deatailViewController.m */; };
 		4E12FAF122422CAC00D6E414 /* deatailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E12FAEF22422CAC00D6E414 /* deatailViewController.xib */; };
+		4E12FAF42242775300D6E414 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E12FAF32242775300D6E414 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		4E12FAED22422CAC00D6E414 /* deatailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deatailViewController.h; sourceTree = "<group>"; };
 		4E12FAEE22422CAC00D6E414 /* deatailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = deatailViewController.m; sourceTree = "<group>"; };
 		4E12FAEF22422CAC00D6E414 /* deatailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = deatailViewController.xib; sourceTree = "<group>"; };
+		4E12FAF32242775300D6E414 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E12FAF42242775300D6E414 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +95,7 @@
 				4E12FAC82242064500D6E414 /* contactProjectTests */,
 				4E12FAD32242064500D6E414 /* contactProjectUITests */,
 				4E12FAAE2242064300D6E414 /* Products */,
+				4E12FAF22242775300D6E414 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -141,6 +145,14 @@
 				4E12FAD62242064500D6E414 /* Info.plist */,
 			);
 			path = contactProjectUITests;
+			sourceTree = "<group>";
+		};
+		4E12FAF22242775300D6E414 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4E12FAF32242775300D6E414 /* MessageUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
