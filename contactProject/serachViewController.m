@@ -8,6 +8,7 @@
 
 #import "serachViewController.h"
 #import <Contacts/Contacts.h>
+#import "deatailViewController.h"
 @interface serachViewController ()
 
 @end
@@ -16,28 +17,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CNContactStore *store = [[CNContactStore alloc] init];
+    store = [[CNContactStore alloc] init];
     allItems = [[NSMutableArray alloc] init ];
+    displayItems = [[NSMutableArray alloc]init];
     [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted == YES) {
             //keys with fetching properties
             NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey];
-            NSString *containerId = store.defaultContainerIdentifier;
+            NSString *containerId = self->store.defaultContainerIdentifier;
             NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:containerId];
             NSError *error;
-            NSArray *cnContacts = [store unifiedContactsMatchingPredicate:predicate keysToFetch:keys error:&error];
+            NSArray *cnContacts = [self->store unifiedContactsMatchingPredicate:predicate keysToFetch:keys error:&error];
             if (error) {
                 NSLog(@"error fetching contacts %@", error);
             } else {
-                NSString *phone;
+          
                 NSString *fullName;
                 NSString *firstName;
                 NSString *lastName;
-                UIImage *profileImage;
+    
                 for (CNContact *contact in cnContacts) {
                     // copy data to my custom Contacts class.
                     firstName = contact.givenName;
                     lastName = contact.familyName;
+                  
                     if (lastName == nil) {
                         fullName=[NSString stringWithFormat:@"%@",firstName];
                     }else if (firstName == nil){
@@ -47,15 +50,17 @@
                         fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
                     }
                     
-                    [allItems addObject:fullName];
+                    [self->allItems addObject:contact];
+                    [self->displayItems addObject:fullName];
                 }
+                
              
             }
         }
     }];
     
   
-    displayItems = [[NSMutableArray alloc]initWithArray:allItems];
+   
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -72,6 +77,13 @@
     }
     cell.textLabel.text = [displayItems objectAtIndex:indexPath.row];
     return cell ;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    deatailViewController *detail = [[deatailViewController alloc]init];
+   // NSArray *items=[[BNRItemStore sharedStore]allItems];
+    CNContact *selectedItem = allItems[indexPath.row];
+    detail.data = selectedItem ;
+    [self.navigationController pushViewController:detail animated:YES ];
 }
 /*
 #pragma mark - Navigation

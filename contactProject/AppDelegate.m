@@ -18,10 +18,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     serachViewController *ser = [[serachViewController alloc]init];
-    self.window.rootViewController = ser ;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    // Override point for customization after application launch.
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:ser];
+    self.window.rootViewController = navController;
+    self.window.backgroundColor = [ UIColor whiteColor ];
+    [ self.window makeKeyAndVisible ];
     return YES;
 }
 

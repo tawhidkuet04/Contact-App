@@ -21,22 +21,22 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fod-ga-aEi">
-                    <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fod-ga-aEi">
+                    <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="ZUs-Tq-eEJ"/>
                         <outlet property="delegate" destination="-1" id="Vwy-IP-4ek"/>
                     </connections>
                 </tableView>
+                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQj-21-d05">
+                    <rect key="frame" x="0.0" y="60" width="375" height="56"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="Fod-ga-aEi" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="30" id="0tZ-77-mO2"/>
-                <constraint firstAttribute="bottom" secondItem="Fod-ga-aEi" secondAttribute="bottom" id="Mpt-Id-awJ"/>
-                <constraint firstAttribute="trailing" secondItem="Fod-ga-aEi" secondAttribute="trailing" id="iOW-Z2-icZ"/>
-                <constraint firstItem="Fod-ga-aEi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="inX-QV-6wd"/>
-            </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="130.40000000000001" y="152.47376311844079"/>
         </view>
