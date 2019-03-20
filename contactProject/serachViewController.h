@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
     IBOutlet UITableView *table;
     IBOutlet UISearchBar *searchBar;
     NSMutableArray *allItems;
+    NSMutableArray *displayContacts;
     NSMutableArray *displayItems;
+    NSMutableArray *allContacts;
     CNContactStore *store;
 }
 @end

@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="serachViewController">
             <connections>
+                <outlet property="searchBar" destination="KQj-21-d05" id="cP7-rY-ged"/>
                 <outlet property="table" destination="Fod-ga-aEi" id="xmU-Vn-pKB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -34,6 +35,9 @@
                     <rect key="frame" x="0.0" y="60" width="375" height="56"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="yRW-JF-saD"/>
+                    </connections>
                 </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

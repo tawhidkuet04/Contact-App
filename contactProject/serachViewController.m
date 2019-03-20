@@ -19,6 +19,8 @@
     [super viewDidLoad];
     store = [[CNContactStore alloc] init];
     allItems = [[NSMutableArray alloc] init ];
+    allContacts = [[NSMutableArray alloc]init];
+    displayContacts =[[NSMutableArray alloc]init];
     displayItems = [[NSMutableArray alloc]init];
     [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted == YES) {
@@ -51,8 +53,11 @@
                     }
                     
                     [self->allItems addObject:contact];
-                    [self->displayItems addObject:fullName];
+                    [self->allContacts addObject:fullName];
+                    
                 }
+                [self->displayItems addObjectsFromArray:self->allContacts];
+                [self->displayContacts addObjectsFromArray:self->allItems];
                 
              
             }
@@ -78,13 +83,53 @@
     cell.textLabel.text = [displayItems objectAtIndex:indexPath.row];
     return cell ;
 }
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if([searchText length] ==0){
+        [displayItems removeAllObjects];
+        [displayItems addObjectsFromArray:allContacts];
+        [displayContacts removeAllObjects];
+        [displayContacts addObjectsFromArray:allItems];
+    }else {
+        [displayItems removeAllObjects];
+        [displayContacts removeAllObjects];
+        NSString *fullName;
+        NSString *firstName;
+        NSString *lastName;
+        for( CNContact *contact in allItems){
+            firstName = contact.givenName;
+            lastName = contact.familyName;
+            
+            if (lastName == nil) {
+                fullName=[NSString stringWithFormat:@"%@",firstName];
+            }else if (firstName == nil){
+                fullName=[NSString stringWithFormat:@"%@",lastName];
+            }
+            else{
+                fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
+            }
+            NSRange r = [fullName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+            if(r.location != NSNotFound){
+                [displayItems addObject:fullName];
+                [displayContacts addObject:contact];
+            }
+        }
+    }
+    [table reloadData];
+
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     deatailViewController *detail = [[deatailViewController alloc]init];
-   // NSArray *items=[[BNRItemStore sharedStore]allItems];
-    CNContact *selectedItem = allItems[indexPath.row];
+    // NSArray *items=[[BNRItemStore sharedStore]allItems];
+    CNContact *selectedItem = displayContacts[indexPath.row];
     detail.data = selectedItem ;
     [self.navigationController pushViewController:detail animated:YES ];
 }
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
+    
+}
+
 /*
 #pragma mark - Navigation
 
