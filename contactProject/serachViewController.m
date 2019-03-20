@@ -37,7 +37,7 @@
     [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted == YES) {
             //keys with fetching properties
-            NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey];
+            NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey , CNContactPostalAddressesKey,CNContactEmailAddressesKey,CNPostalAddressCityKey,CNContactBirthdayKey];
             NSString *containerId = self->store.defaultContainerIdentifier;
             NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:containerId];
             NSError *error;
@@ -100,8 +100,6 @@
         NSString *firstName;
         NSString *lastName;
         for( CNContact *contact in allItems){
-            firstName = contact.givenName;
-            lastName = contact.familyName;
             firstName = contact.givenName;
             lastName = contact.familyName;
             fullName = [self getfullname:firstName second:lastName];

@@ -16,7 +16,6 @@
 		4E12FAD52242064500D6E414 /* contactProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12FAD42242064500D6E414 /* contactProjectUITests.m */; };
 		4E12FAE522420F3500D6E414 /* serachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12FAE322420F3500D6E414 /* serachViewController.m */; };
 		4E12FAE622420F3500D6E414 /* serachViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E12FAE422420F3500D6E414 /* serachViewController.xib */; };
-		4E12FAEC224221A900D6E414 /* contactList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12FAEB224221A900D6E414 /* contactList.m */; };
 		4E12FAF022422CAC00D6E414 /* deatailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12FAEE22422CAC00D6E414 /* deatailViewController.m */; };
 		4E12FAF122422CAC00D6E414 /* deatailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E12FAEF22422CAC00D6E414 /* deatailViewController.xib */; };
 /* End PBXBuildFile section */
@@ -56,8 +55,6 @@
 		4E12FAE222420F3500D6E414 /* serachViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = serachViewController.h; sourceTree = "<group>"; };
 		4E12FAE322420F3500D6E414 /* serachViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = serachViewController.m; sourceTree = "<group>"; };
 		4E12FAE422420F3500D6E414 /* serachViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = serachViewController.xib; sourceTree = "<group>"; };
-		4E12FAEA224221A900D6E414 /* contactList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = contactList.h; sourceTree = "<group>"; };
-		4E12FAEB224221A900D6E414 /* contactList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = contactList.m; sourceTree = "<group>"; };
 		4E12FAED22422CAC00D6E414 /* deatailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deatailViewController.h; sourceTree = "<group>"; };
 		4E12FAEE22422CAC00D6E414 /* deatailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = deatailViewController.m; sourceTree = "<group>"; };
 		4E12FAEF22422CAC00D6E414 /* deatailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = deatailViewController.xib; sourceTree = "<group>"; };
@@ -124,8 +121,6 @@
 				4E12FABB2242064500D6E414 /* LaunchScreen.storyboard */,
 				4E12FABE2242064500D6E414 /* Info.plist */,
 				4E12FABF2242064500D6E414 /* main.m */,
-				4E12FAEA224221A900D6E414 /* contactList.h */,
-				4E12FAEB224221A900D6E414 /* contactList.m */,
 			);
 			path = contactProject;
 			sourceTree = "<group>";
@@ -281,7 +276,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E12FAF022422CAC00D6E414 /* deatailViewController.m in Sources */,
-				4E12FAEC224221A900D6E414 /* contactList.m in Sources */,
 				4E12FAC02242064500D6E414 /* main.m in Sources */,
 				4E12FAE522420F3500D6E414 /* serachViewController.m in Sources */,
 				4E12FAB22242064300D6E414 /* AppDelegate.m in Sources */,
