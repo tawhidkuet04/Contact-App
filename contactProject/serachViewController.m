@@ -14,7 +14,19 @@
 @end
 
 @implementation serachViewController
-
+-(NSString *)getfullname:(NSString *)firstName second:(NSString *)lastName{
+    NSString *fullName;
+    if (lastName == nil) {
+        fullName=[NSString stringWithFormat:@"%@",firstName];
+    }else if (firstName == nil){
+        fullName=[NSString stringWithFormat:@"%@",lastName];
+    }
+    else{
+        fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
+    }
+    return fullName;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     store = [[CNContactStore alloc] init];
@@ -42,16 +54,7 @@
                     // copy data to my custom Contacts class.
                     firstName = contact.givenName;
                     lastName = contact.familyName;
-                  
-                    if (lastName == nil) {
-                        fullName=[NSString stringWithFormat:@"%@",firstName];
-                    }else if (firstName == nil){
-                        fullName=[NSString stringWithFormat:@"%@",lastName];
-                    }
-                    else{
-                        fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
-                    }
-                    
+                    fullName = [self getfullname:firstName second:lastName];
                     [self->allItems addObject:contact];
                     [self->allContacts addObject:fullName];
                     
@@ -99,15 +102,9 @@
         for( CNContact *contact in allItems){
             firstName = contact.givenName;
             lastName = contact.familyName;
-            
-            if (lastName == nil) {
-                fullName=[NSString stringWithFormat:@"%@",firstName];
-            }else if (firstName == nil){
-                fullName=[NSString stringWithFormat:@"%@",lastName];
-            }
-            else{
-                fullName=[NSString stringWithFormat:@"%@ %@",firstName,lastName];
-            }
+            firstName = contact.givenName;
+            lastName = contact.familyName;
+            fullName = [self getfullname:firstName second:lastName];
             NSRange r = [fullName rangeOfString:searchText options:NSCaseInsensitiveSearch];
             if(r.location != NSNotFound){
                 [displayItems addObject:fullName];
