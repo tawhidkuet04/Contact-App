@@ -51,6 +51,8 @@
     
     mutableContact.givenName = givenName;
     mutableContact.familyName = familyName;
+    NSString *full ;
+    [self getfullname:givenName second:familyName];
     CNPhoneNumber * phone =[CNPhoneNumber phoneNumberWithStringValue:phoneNumber];
     
     mutableContact.phoneNumbers = [[NSArray alloc] initWithObjects:[CNLabeledValue labeledValueWithLabel:CNLabelPhoneNumberiPhone value:phone], nil];
@@ -61,7 +63,10 @@
     NSError *error;
     if([store executeSaveRequest:saveRequest error:&error]) {
         NSLog(@"aaaaaaa  save");
-        [self loadContact];
+        if ( full != nil ){
+            [self loadContact];
+        }
+        
         NSLog(@"before");
         [table reloadData];
         NSLog(@"after");
