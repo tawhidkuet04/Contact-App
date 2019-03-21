@@ -40,10 +40,13 @@
                                    UITextField *phonenumber = alertController.textFields.lastObject;
                                    
                                    [self saveContact:firstname.text givenName:@"" phoneNumber:phonenumber.text];
+                                   [self loadContact];
+                                   [table reloadData];
                                }];
     
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
+    
    
 }
 -(void)saveContact:(NSString*)familyName givenName:(NSString*)givenName phoneNumber:(NSString*)phoneNumber {
@@ -63,10 +66,10 @@
     NSError *error;
     if([store executeSaveRequest:saveRequest error:&error]) {
         NSLog(@"aaaaaaa  save");
-        if ( full != nil ){
-            [self loadContact];
-        }
-        
+//        if ( full != nil ){
+//            [self loadContact];
+//        }
+//
         NSLog(@"before");
         [table reloadData];
         NSLog(@"after");
@@ -126,6 +129,7 @@
             }
         }
     }];
+    NSLog(@"load");
     
     
     

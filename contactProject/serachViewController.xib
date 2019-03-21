@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -12,35 +12,58 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="serachViewController">
             <connections>
-                <outlet property="searchBar" destination="KQj-21-d05" id="cP7-rY-ged"/>
-                <outlet property="table" destination="Fod-ga-aEi" id="xmU-Vn-pKB"/>
+                <outlet property="searchBar" destination="yaV-13-6Se" id="ejQ-lY-jgD"/>
+                <outlet property="table" destination="BT4-7Z-mwU" id="M07-rz-btf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fod-ga-aEi">
-                    <rect key="frame" x="0.0" y="116" width="375" height="551"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Wa-zA-mKN">
+                    <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                    <subviews>
+                        <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="yaV-13-6Se">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="BC8-kN-EY3"/>
+                            </connections>
+                        </searchBar>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BT4-7Z-mwU">
+                            <rect key="frame" x="0.0" y="55" width="320" height="493"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="jr2-uh-8p9"/>
+                                <outlet property="delegate" destination="-1" id="aLJ-31-7nD"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="ZUs-Tq-eEJ"/>
-                        <outlet property="delegate" destination="-1" id="Vwy-IP-4ek"/>
-                    </connections>
-                </tableView>
-                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQj-21-d05">
-                    <rect key="frame" x="0.0" y="60" width="375" height="56"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="yRW-JF-saD"/>
-                    </connections>
-                </searchBar>
+                    <constraints>
+                        <constraint firstItem="BT4-7Z-mwU" firstAttribute="leading" secondItem="7Wa-zA-mKN" secondAttribute="leading" id="54U-lA-WMZ"/>
+                        <constraint firstItem="yaV-13-6Se" firstAttribute="height" secondItem="7Wa-zA-mKN" secondAttribute="height" multiplier="0.1" id="AJE-0W-GRl"/>
+                        <constraint firstItem="BT4-7Z-mwU" firstAttribute="width" secondItem="7Wa-zA-mKN" secondAttribute="width" id="E6k-4w-ZIf"/>
+                        <constraint firstItem="BT4-7Z-mwU" firstAttribute="top" secondItem="yaV-13-6Se" secondAttribute="bottom" id="Jcm-Cz-H0k"/>
+                        <constraint firstItem="yaV-13-6Se" firstAttribute="leading" secondItem="7Wa-zA-mKN" secondAttribute="leading" id="LKa-ja-iBs"/>
+                        <constraint firstAttribute="trailing" secondItem="BT4-7Z-mwU" secondAttribute="trailing" id="LOg-JZ-wSu"/>
+                        <constraint firstItem="yaV-13-6Se" firstAttribute="top" secondItem="7Wa-zA-mKN" secondAttribute="top" id="LR2-ZD-wty"/>
+                        <constraint firstItem="yaV-13-6Se" firstAttribute="width" secondItem="7Wa-zA-mKN" secondAttribute="width" id="inl-9q-m58"/>
+                        <constraint firstAttribute="trailing" secondItem="yaV-13-6Se" secondAttribute="trailing" id="jVw-nb-dbr"/>
+                        <constraint firstAttribute="bottom" secondItem="BT4-7Z-mwU" secondAttribute="bottom" id="ott-um-2am"/>
+                        <constraint firstItem="BT4-7Z-mwU" firstAttribute="height" secondItem="7Wa-zA-mKN" secondAttribute="height" multiplier="0.9" id="rrU-MQ-7a7"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="7Wa-zA-mKN" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="5mP-eR-0kZ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="7Wa-zA-mKN" secondAttribute="trailing" id="Y4G-44-KwU"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="7Wa-zA-mKN" secondAttribute="bottom" id="bUH-C0-Uqx"/>
+                <constraint firstItem="7Wa-zA-mKN" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="onu-NQ-xov"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="130.40000000000001" y="152.47376311844079"/>
         </view>
