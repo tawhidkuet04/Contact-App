@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <Contacts/Contacts.h>
+#import "deatailViewController.h"
+#import "contactDetailViewController.h"
+#import <ContactsUI/ContactsUI.h>
+#import "AppDelegate.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface serachViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>{
@@ -18,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *displayItems;
     NSMutableArray *allContacts;
     CNContactStore *store;
+    CNContactViewController *controller;
 }
 -(NSString *)getfullname:(NSString *)firstName second:(NSString *)lastName;
 @end

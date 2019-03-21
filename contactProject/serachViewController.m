@@ -9,7 +9,10 @@
 #import "serachViewController.h"
 #import <Contacts/Contacts.h>
 #import "deatailViewController.h"
-@interface serachViewController ()
+#import "contactDetailViewController.h"
+#import <ContactsUI/ContactsUI.h>
+#import "AppDelegate.h"
+@interface serachViewController ()<UISplitViewControllerDelegate,CNContactViewControllerDelegate,CNContactPickerDelegate>
 
 @end
 
@@ -28,7 +31,9 @@
     
 }
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    NSLog(@"sadasd");
     store = [[CNContactStore alloc] init];
     allItems = [[NSMutableArray alloc] init ];
     allContacts = [[NSMutableArray alloc]init];
@@ -37,7 +42,7 @@
     [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted == YES) {
             //keys with fetching properties
-            NSArray *keys = @[CNContactFamilyNameKey, CNContactGivenNameKey, CNContactPhoneNumbersKey, CNContactImageDataKey , CNContactPostalAddressesKey,CNContactEmailAddressesKey,CNPostalAddressCityKey,CNContactBirthdayKey];
+            NSArray *keys = [[NSArray alloc]initWithObjects:CNContactIdentifierKey, CNContactEmailAddressesKey, CNContactBirthdayKey, CNContactImageDataKey, CNContactPhoneNumbersKey, CNContactViewController.descriptorForRequiredKeys, nil];
             NSString *containerId = self->store.defaultContainerIdentifier;
             NSPredicate *predicate = [CNContact predicateForContactsInContainerWithIdentifier:containerId];
             NSError *error;
@@ -114,18 +119,66 @@
 
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    deatailViewController *detail = [[deatailViewController alloc]init];
-    // NSArray *items=[[BNRItemStore sharedStore]allItems];
+//    contactDetailViewController  *detail = [[contactDetailViewController alloc]init];
+//    // NSArray *items=[[BNRItemStore sharedStore]allItems];
+//    CNContact *selectedItem = displayContacts[indexPath.row];
+//    detail.data = selectedItem ;
+//    [self.navigationController pushViewController:detail animated:YES ];
     CNContact *selectedItem = displayContacts[indexPath.row];
-    detail.data = selectedItem ;
-    [self.navigationController pushViewController:detail animated:YES ];
+//    NSLog(@"selected item: %@", selectedItem);
+//    CNContact *OK = [[CNMutableContact alloc] init];
+//    [OK setValuesForKeysWithDictionary:@{
+//                                         CNContactFamilyNameKey: @"ASD",
+//                                         CNContactNicknameKey: @"QWE"
+//                                         }
+//     ];
+//    controller = [[CNContactVi ewController alloc]init];
+    CNContactViewController *controller = [CNContactViewController viewControllerForContact:selectedItem];
+    controller.delegate=self;
+    //controller.contactStore = store;
+    controller.allowsActions= YES;
+    controller.allowsEditing = YES;
+    controller.shouldShowLinkedContacts = YES;
+    [self.navigationController pushViewController:controller animated:YES ];
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
     
 }
 
-/*
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        CNContact *selectedItem = displayContacts[indexPath.row];
+        [self deleteContact:selectedItem];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+}
+-(void)deleteContact:(CNContact*)contact {
+    NSMutableArray *temp = [[NSMutableArray alloc] init ];
+    [temp addObjectsFromArray:displayContacts];
+    [displayItems removeAllObjects];
+    [displayContacts removeAllObjects];
+    
+    NSString *fullName;
+    NSString *firstName;
+    NSString *lastName;
+    for( CNContact *cc in temp){
+        firstName = cc.givenName;
+        lastName = cc.familyName;
+        fullName = [self getfullname:firstName second:lastName];
+       
+        if(cc.identifier == contact.identifier){
+            NSLog(@"DELETED");
+            continue;
+        }else {
+            [displayItems addObject:fullName];
+            [displayContacts addObject:cc];
+        }
+    }
+  
+    
+}/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation

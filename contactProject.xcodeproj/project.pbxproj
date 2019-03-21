@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E12481D2243614300B95CB5 /* contactDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12481B2243614300B95CB5 /* contactDetailViewController.m */; };
+		4E12481E2243614300B95CB5 /* contactDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E12481C2243614300B95CB5 /* contactDetailViewController.xib */; };
 		4E12FAB22242064300D6E414 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E12FAB12242064300D6E414 /* AppDelegate.m */; };
 		4E12FAB82242064300D6E414 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E12FAB62242064300D6E414 /* Main.storyboard */; };
 		4E12FABA2242064500D6E414 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E12FAB92242064500D6E414 /* Assets.xcassets */; };
@@ -39,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E12481A2243614300B95CB5 /* contactDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = contactDetailViewController.h; sourceTree = "<group>"; };
+		4E12481B2243614300B95CB5 /* contactDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = contactDetailViewController.m; sourceTree = "<group>"; };
+		4E12481C2243614300B95CB5 /* contactDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = contactDetailViewController.xib; sourceTree = "<group>"; };
 		4E12FAAD2242064300D6E414 /* contactProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = contactProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E12FAB02242064300D6E414 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E12FAB12242064300D6E414 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -118,6 +123,9 @@
 				4E12FAE322420F3500D6E414 /* serachViewController.m */,
 				4E12FAED22422CAC00D6E414 /* deatailViewController.h */,
 				4E12FAEE22422CAC00D6E414 /* deatailViewController.m */,
+				4E12481A2243614300B95CB5 /* contactDetailViewController.h */,
+				4E12481B2243614300B95CB5 /* contactDetailViewController.m */,
+				4E12481C2243614300B95CB5 /* contactDetailViewController.xib */,
 				4E12FAEF22422CAC00D6E414 /* deatailViewController.xib */,
 				4E12FAE422420F3500D6E414 /* serachViewController.xib */,
 				4E12FAB62242064300D6E414 /* Main.storyboard */,
@@ -262,6 +270,7 @@
 				4E12FABA2242064500D6E414 /* Assets.xcassets in Resources */,
 				4E12FAE622420F3500D6E414 /* serachViewController.xib in Resources */,
 				4E12FAB82242064300D6E414 /* Main.storyboard in Resources */,
+				4E12481E2243614300B95CB5 /* contactDetailViewController.xib in Resources */,
 				4E12FAF122422CAC00D6E414 /* deatailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E12FAF022422CAC00D6E414 /* deatailViewController.m in Sources */,
+				4E12481D2243614300B95CB5 /* contactDetailViewController.m in Sources */,
 				4E12FAC02242064500D6E414 /* main.m in Sources */,
 				4E12FAE522420F3500D6E414 /* serachViewController.m in Sources */,
 				4E12FAB22242064300D6E414 /* AppDelegate.m in Sources */,
@@ -464,6 +474,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QA5HCG2XW6;
 				INFOPLIST_FILE = contactProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -481,6 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QA5HCG2XW6;
 				INFOPLIST_FILE = contactProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

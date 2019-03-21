@@ -30,6 +30,8 @@
     [_emailAddress setUserInteractionEnabled:YES];
     [_emailAddress  addGestureRecognizer:mail1LblGesture];
     // Do any additional setup after loading the view from its nib.
+    
+    NSLog(@" viewDidLoad at Detail View ");
 }
 
 -(void)viewDidAppear:(BOOL)animated{
