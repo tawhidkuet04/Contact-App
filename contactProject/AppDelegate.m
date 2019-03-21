@@ -19,6 +19,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     serachViewController *ser = [[serachViewController alloc]init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:ser];
+ 
     self.window.rootViewController = navController;
     self.window.backgroundColor = [ UIColor whiteColor ];
     [ self.window makeKeyAndVisible ];

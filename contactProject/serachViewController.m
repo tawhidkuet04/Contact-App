@@ -12,11 +12,64 @@
 #import "contactDetailViewController.h"
 #import <ContactsUI/ContactsUI.h>
 #import "AppDelegate.h"
-@interface serachViewController ()<UISplitViewControllerDelegate,CNContactViewControllerDelegate,CNContactPickerDelegate>
+@interface serachViewController ()<UISplitViewControllerDelegate,CNContactViewControllerDelegate,CNContactPickerDelegate,UINavigationBarDelegate,UINavigationControllerDelegate>
 
 @end
-
 @implementation serachViewController
+-(IBAction)addNewItem:(id)sender{
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"Add"
+                                          message:@"New Contact"
+                                          preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = @"Firstname";
+     }];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
+     {
+         textField.placeholder = @"PhoneNumber";
+     }];
+    
+    UIAlertAction *okAction = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction *action)
+                               {
+                                   UITextField *firstname = alertController.textFields.firstObject;
+                                   UITextField *phonenumber = alertController.textFields.lastObject;
+                                   
+                                   [self saveContact:firstname.text givenName:@"" phoneNumber:phonenumber.text];
+                               }];
+    
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+   
+}
+-(void)saveContact:(NSString*)familyName givenName:(NSString*)givenName phoneNumber:(NSString*)phoneNumber {
+    CNMutableContact *mutableContact = [[CNMutableContact alloc] init];
+    
+    mutableContact.givenName = givenName;
+    mutableContact.familyName = familyName;
+    CNPhoneNumber * phone =[CNPhoneNumber phoneNumberWithStringValue:phoneNumber];
+    
+    mutableContact.phoneNumbers = [[NSArray alloc] initWithObjects:[CNLabeledValue labeledValueWithLabel:CNLabelPhoneNumberiPhone value:phone], nil];
+    CNContactStore *store = [[CNContactStore alloc] init];
+    CNSaveRequest *saveRequest = [[CNSaveRequest alloc] init];
+    [saveRequest addContact:mutableContact toContainerWithIdentifier:store.defaultContainerIdentifier];
+    
+    NSError *error;
+    if([store executeSaveRequest:saveRequest error:&error]) {
+        NSLog(@"aaaaaaa  save");
+        [self loadContact];
+        NSLog(@"before");
+        [table reloadData];
+        NSLog(@"after");
+    }else {
+        NSLog(@"save error");
+    }
+}
+
 -(NSString *)getfullname:(NSString *)firstName second:(NSString *)lastName{
     NSString *fullName;
     if (lastName == nil) {
@@ -30,10 +83,7 @@
     return fullName;
     
 }
-- (void)viewDidLoad {
-    
-    [super viewDidLoad];
-    NSLog(@"sadasd");
+-(void)loadContact{
     store = [[CNContactStore alloc] init];
     allItems = [[NSMutableArray alloc] init ];
     allContacts = [[NSMutableArray alloc]init];
@@ -50,11 +100,11 @@
             if (error) {
                 NSLog(@"error fetching contacts %@", error);
             } else {
-          
+                
                 NSString *fullName;
                 NSString *firstName;
                 NSString *lastName;
-    
+                
                 for (CNContact *contact in cnContacts) {
                     // copy data to my custom Contacts class.
                     firstName = contact.givenName;
@@ -67,13 +117,24 @@
                 [self->displayItems addObjectsFromArray:self->allContacts];
                 [self->displayContacts addObjectsFromArray:self->allItems];
                 
-             
+                
             }
         }
     }];
     
-  
-   
+    
+    
+    
+    
+}
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    UINavigationItem *navItem = self.navigationItem;
+    UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+    navItem.rightBarButtonItem=bbi;
+    [self loadContact];
+    NSLog(@"sadasd");
     
     // Do any additional setup after loading the view from its nib.
 }
