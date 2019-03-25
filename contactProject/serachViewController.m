@@ -174,9 +174,18 @@
     }else {
         select = false ;
         NSLog(@"ytytytyytyt %d",[deleteContact count]);
+        if([deleteContact count] > 0 ){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait" message:@"Are you sure you want to delete this.  This action cannot be undone" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
+        [alert show];
+        }
         
-        [self deleteItem];
         [table setEditing:NO animated:YES];
+    }
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0){
+       
+       [self deleteItem];
     }
 }
 -(void)deleteItem{
@@ -299,15 +308,15 @@
     
 }
 
-//-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if(editingStyle == UITableViewCellEditingStyleDelete){
-//        CNContact *selectedItem = displayContacts[indexPath.row];
-//        [self deleteContact:selectedItem];
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//
-//    }
-//
-//}
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        CNContact *selectedItem = displayContacts[indexPath.row];
+        [self deleteContact:selectedItem];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+    }
+
+}
 -(void)deleteContact:(CNContact*)contact {
   //  [allItems removeAllObjects];
    // [allContacts removeAllObjects];
@@ -345,7 +354,9 @@
 }
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 3 ;
+    if(select){
+        return 3 ;
+    }else return 1 ;
 }
 /*
 #pragma mark - Navigation
