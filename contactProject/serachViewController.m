@@ -17,37 +17,37 @@
 @end
 @implementation serachViewController
 -(IBAction)addNewItem:(id)sender{
-    UIAlertController *alertController = [UIAlertController
-                                          alertControllerWithTitle:@"Add"
-                                          message:@"New Contact"
-                                          preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
-     {
-         textField.placeholder = @"Firstname";
-     }];
-    
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField)
-     {
-         textField.placeholder = @"PhoneNumber";
-     }];
-    
-    UIAlertAction *okAction = [UIAlertAction
-                               actionWithTitle:@"OK"
-                               style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction *action)
-                               {
-                                   UITextField *firstname = alertController.textFields.firstObject;
-                                   UITextField *phonenumber = alertController.textFields.lastObject;
-                                   
-                                   [self saveContact:firstname.text givenName:@"" phoneNumber:phonenumber.text];
-                                   [self loadContact];
-                                   [table reloadData];
-                               }];
-    
-    [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    NSLog(@"before saveqqq");
+    CNContact *OK = [[CNMutableContact alloc] init];
+        [OK setValuesForKeysWithDictionary:@{
+                                             CNContactFamilyNameKey: @"",
+                                             CNContactNicknameKey: @""
+                                             }
+         
+         ];
+    CNContactViewController *controller = [CNContactViewController viewControllerForNewContact:OK];
+    controller.delegate=self;
+    controller.contactStore = store;
+//    controller.allowsActions= YES;
+//    controller.allowsEditing = YES;
+//    controller.shouldShowLinkedContacts = YES;
+    NSLog(@"before save");
+
+    [self.navigationController pushViewController:controller animated:YES];
+  //  [self presentViewController:controller] animated:YES completion:  nil ];
+    NSLog(@"saved contact");
     
    
+}
+-(void)contactViewController:(CNContactViewController *)viewController didCompleteWithContact:(CNContact *)contact{
+    if(contact == nil){
+        [self.navigationController popViewControllerAnimated:YES];
+    }else {
+    
+        [self loadContact];
+        [table reloadData];
+    }
+
 }
 -(void)saveContact:(NSString*)familyName givenName:(NSString*)givenName phoneNumber:(NSString*)phoneNumber {
     CNMutableContact *mutableContact = [[CNMutableContact alloc] init];
@@ -93,10 +93,10 @@
 }
 -(void)loadContact{
     store = [[CNContactStore alloc] init];
-    allItems = [[NSMutableArray alloc] init ];
-    allContacts = [[NSMutableArray alloc]init];
-    displayContacts =[[NSMutableArray alloc]init];
-    displayItems = [[NSMutableArray alloc]init];
+    [displayContacts removeAllObjects];
+    [displayItems removeAllObjects];
+    [allItems removeAllObjects];
+    [allContacts removeAllObjects];
     [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted == YES) {
             //keys with fetching properties
@@ -129,6 +129,7 @@
             }
         }
     }];
+    [table reloadData];
     NSLog(@"load");
     
     
@@ -139,10 +140,14 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    allItems = [[NSMutableArray alloc] init ];
+    allContacts = [[NSMutableArray alloc]init];
+    displayContacts =[[NSMutableArray alloc]init];
+    displayItems = [[NSMutableArray alloc]init];
+    [self loadContact];
     UINavigationItem *navItem = self.navigationItem;
     UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
     navItem.rightBarButtonItem=bbi;
-    [self loadContact];
     NSLog(@"sadasd");
     
     // Do any additional setup after loading the view from its nib.
