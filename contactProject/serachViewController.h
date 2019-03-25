@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *allContacts;
     CNContactStore *store;
     CNContactViewController *controller;
+    NSMutableArray *deleteContact;
+    bool select;
 }
 -(NSString *)getfullname:(NSString *)firstName second:(NSString *)lastName;
 @end

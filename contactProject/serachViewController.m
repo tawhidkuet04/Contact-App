@@ -16,6 +16,10 @@
 
 @end
 @implementation serachViewController
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [deleteContact addObject:displayContacts[indexPath.row]];
+//}
+
 -(IBAction)addNewItem:(id)sender{
     NSLog(@"before saveqqq");
     CNContact *OK = [[CNMutableContact alloc] init];
@@ -140,21 +144,73 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
     allItems = [[NSMutableArray alloc] init ];
     allContacts = [[NSMutableArray alloc]init];
     displayContacts =[[NSMutableArray alloc]init];
     displayItems = [[NSMutableArray alloc]init];
+    deleteContact = [[NSMutableArray alloc]init];
     [self loadContact];
     UINavigationItem *navItem = self.navigationItem;
+    navItem.title = @"Contact List";
     UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+    UIBarButtonItem *bbe = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editItem:)];
+    
+    navItem.leftBarButtonItem = self.editButtonItem;
     navItem.rightBarButtonItem=bbi;
     NSLog(@"sadasd");
     
     // Do any additional setup after loading the view from its nib.
 }
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1 ;
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated{
+    select = true ;
+    [super setEditing:editing animated:YES];
+   
+   // [table setEditing:YES   animated:YES];
+    if(editing){
+         [deleteContact removeAllObjects];
+        [table setEditing:YES animated:YES];
+        
+    }else {
+        select = false ;
+        NSLog(@"ytytytyytyt %d",[deleteContact count]);
+        
+        [self deleteItem];
+        [table setEditing:NO animated:YES];
+    }
 }
+-(void)deleteItem{
+    NSLog(@"dlll");
+//    NSMutableArray *temp = [[NSMutableArray alloc] init ];
+//    [temp addObjectsFromArray:displayContacts];
+//    [displayItems removeAllObjects];
+//    [displayContacts removeAllObjects];
+//
+//    NSString *fullName;
+//    NSString *firstName;
+//    NSString *lastName;
+//    for( CNContact *cc in temp){
+//        firstName = cc.givenName;
+//        lastName = cc.familyName;
+//        fullName = [self getfullname:firstName second:lastName];
+//
+//        if(cc.identifier == contact.identifier){
+//            NSLog(@"DELETED");
+//            continue;
+//        }else {
+//            [displayItems addObject:fullName];
+//            [displayContacts addObject:cc];
+//        }
+//    }
+    for(CNContact *cc in deleteContact){
+        [self deleteContact:cc];
+    }
+    [table reloadData];
+    
+}
+//-(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+//    return 1 ;
+//}
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [displayItems count];
 }
@@ -199,6 +255,7 @@
 //    CNContact *selectedItem = displayContacts[indexPath.row];
 //    detail.data = selectedItem ;
 //    [self.navigationController pushViewController:detail animated:YES ];
+    if(!select){
     CNContact *selectedItem = displayContacts[indexPath.row];
 //    NSLog(@"selected item: %@", selectedItem);
 //    CNContact *OK = [[CNMutableContact alloc] init];
@@ -215,21 +272,45 @@
     controller.allowsEditing = YES;
     controller.shouldShowLinkedContacts = YES;
     [self.navigationController pushViewController:controller animated:YES ];
+    }else{
+        
+        [deleteContact addObject:displayContacts[indexPath.row]];
+        NSLog(@"delete signal");
+        if([deleteContact count] > 0 ){
+            self.editButtonItem.title = @"Delete";
+        }else {
+            self.editButtonItem.title = @"Done";
+        }
+       
+    }
+}
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //NSLog(@"delete signal");
+
+  [deleteContact removeObject:displayContacts[indexPath.row]];
+    if([deleteContact count] > 0 ){
+        self.editButtonItem.title = @"Delete";
+    }else {
+        self.editButtonItem.title = @"Done";
+    }
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
     
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(editingStyle == UITableViewCellEditingStyleDelete){
-        CNContact *selectedItem = displayContacts[indexPath.row];
-        [self deleteContact:selectedItem];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    
-}
+//-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if(editingStyle == UITableViewCellEditingStyleDelete){
+//        CNContact *selectedItem = displayContacts[indexPath.row];
+//        [self deleteContact:selectedItem];
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//
+//    }
+//
+//}
 -(void)deleteContact:(CNContact*)contact {
+  //  [allItems removeAllObjects];
+   // [allContacts removeAllObjects];
     NSMutableArray *temp = [[NSMutableArray alloc] init ];
     [temp addObjectsFromArray:displayContacts];
     [displayItems removeAllObjects];
@@ -238,22 +319,35 @@
     NSString *fullName;
     NSString *firstName;
     NSString *lastName;
+    NSString *OK ;
     for( CNContact *cc in temp){
         firstName = cc.givenName;
         lastName = cc.familyName;
         fullName = [self getfullname:firstName second:lastName];
-       
+        
         if(cc.identifier == contact.identifier){
+            [allContacts removeObject:fullName];
+            [allItems removeObject:cc];
             NSLog(@"DELETED");
             continue;
         }else {
             [displayItems addObject:fullName];
             [displayContacts addObject:cc];
+       
         }
     }
+    
+  //  [allItems addObjectsFromArray:displayItems];
+  //  [allContacts addObjectsFromArray:displayContacts];
+    
   
     
-}/*
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 3 ;
+}
+/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
